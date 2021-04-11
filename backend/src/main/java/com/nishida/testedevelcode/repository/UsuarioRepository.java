@@ -1,8 +1,8 @@
-package com.nishida.repository;
+package com.nishida.testedevelcode.repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.nishida.model.Usuario;
+import com.nishida.testedevelcode.model.Usuario;
 
 /**
   É possível usar metodos do JPARepository sem implementá-los, como save(), 
@@ -13,5 +13,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
   List<Usuario> findByNomeContaining(String nome);
 
-  void deleteByCodigo(Long codigo);
 }

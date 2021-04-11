@@ -1,10 +1,10 @@
-package com.nishida.controller;
+package com.nishida.testedevelcode.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nishida.repository.UsuarioRepository;
-import com.nishida.model.Usuario;
+import com.nishida.testedevelcode.repository.UsuarioRepository;
+import com.nishida.testedevelcode.model.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping("/")
+// @RequestMapping("/api")
 public class UsuarioController {
 
 	@Autowired
 	UsuarioRepository usuarioRepository;
 
-	@GetMapping("usuarios")
+	@GetMapping("/usuarios")
 	public ResponseEntity<List<Usuario>> getAllUsuarios(@RequestParam(required = false) String nome) {
 		try {
 			List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -50,7 +50,7 @@ public class UsuarioController {
 		}
 	}
 
-	@GetMapping("usuarios/{id}")
+	@GetMapping("/usuarios/{codigo}")
 	public ResponseEntity<Usuario> getUsuarioByCodigo(@PathVariable("codigo") long codigo) {
 		Usuario usuarioByCodigo = usuarioRepository.findByCodigo(codigo);
 
@@ -63,7 +63,7 @@ public class UsuarioController {
 		}
 	}
 
-	@PostMapping("usuarios")
+	@PostMapping("/usuarios")
 	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
     try {
 			Usuario _usuario = usuarioRepository.save(new Usuario(usuario.getNome(), usuario.getDataNascimento(), usuario.getFoto()));
@@ -73,7 +73,7 @@ public class UsuarioController {
 		}
 	}
 
-	@PutMapping("usuarios/{codigo}")
+	@PutMapping("/usuarios/{codigo}")
 	public ResponseEntity<Usuario> updateUsuario(
     @PathVariable("codigo") long codigo, 
     @RequestBody Usuario usuario //Usuario com as alterações a serem feitas
@@ -92,14 +92,14 @@ public class UsuarioController {
 		}
 	}
 
-	@DeleteMapping("usuarios/{codigo}")
+	@DeleteMapping("/usuarios/{codigo}")
 	public ResponseEntity<HttpStatus> deleteUsuario(@PathVariable("codigo") long codigo) {
     Usuario usuarioByCodigo = usuarioRepository.findByCodigo(codigo);
 
     //Se existe um usuario com aquele codigo para ser deletado
     if(usuarioByCodigo != null){
       try {
-        usuarioRepository.deleteByCodigo(codigo);
+        usuarioRepository.delete(usuarioByCodigo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       } catch (Exception e) {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

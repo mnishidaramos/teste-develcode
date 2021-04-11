@@ -1,7 +1,7 @@
-package com.nishida.model;
+package com.nishida.testedevelcode.model;
 
 import javax.persistence.*;
-import java.awt.image.*;
+// import java.awt.image.*;
 // import javax.imageio.*;
 import java.util.Date;
 
@@ -16,16 +16,16 @@ public class Usuario {
 	@Column(name = "nome")
 	private String nome;
 
-	@Column(name = "data-nascimento")
+	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 
 	@Column(name = "foto")
-	private BufferedImage foto;
+	private byte[] foto;
 
 	//Construtores
 	public Usuario() {}
 
-	public Usuario (String nome, Date dataNascimento, BufferedImage foto) {
+	public Usuario (String nome, Date dataNascimento, byte[] foto) {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		// this.foto = foto;
@@ -55,11 +55,11 @@ public class Usuario {
 	}
 
 	// Get e set para foto
-	public BufferedImage getFoto() {
+	public byte[] getFoto() {
 		return foto;
 	}
 
-	public void setFoto(BufferedImage foto){
+	public void setFoto(byte[] foto){
 		this.foto = foto;
 	}
 }
