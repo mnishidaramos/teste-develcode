@@ -1,9 +1,8 @@
 package com.nishida.testedevelcode.model;
 
 import javax.persistence.*;
-// import java.awt.image.*;
-// import javax.imageio.*;
 import java.util.Date;
+import javax.persistence.Lob;
 
 @Entity
 @Table(name = "usuario")
@@ -19,6 +18,7 @@ public class Usuario {
 	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 
+	// @Lob
 	@Column(name = "foto")
 	private byte[] foto;
 
@@ -28,7 +28,7 @@ public class Usuario {
 	public Usuario (String nome, Date dataNascimento, byte[] foto) {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
-		// this.foto = foto;
+		this.foto = foto;
 	}
 
 	//Get para codigo
@@ -55,7 +55,6 @@ public class Usuario {
 	}
 
 	// Get e set para foto
-	//https://stackoverflow.com/questions/35505424/how-to-read-bytea-image-data-from-postgresql-with-jpa
 	public byte[] getFoto() {
 		return foto;
 	}

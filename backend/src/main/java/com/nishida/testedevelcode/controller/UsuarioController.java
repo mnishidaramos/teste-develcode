@@ -1,12 +1,12 @@
 package com.nishida.testedevelcode.controller;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
-import com.nishida.testedevelcode.repository.UsuarioRepository;
 import com.nishida.testedevelcode.model.Usuario;
+import com.nishida.testedevelcode.repository.UsuarioRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
 		Apenas durante o desenvolvimento, requisições de qualquer origem serão processadas pelo back-end.
 		Porém, em produção, é recomendável fazer o mesmo. É possível limitar as origens das requisições
-		utilizando @CrossOrigin(origins = "http://localhost:3000"), por exemplo
+		utilizando @CrossOrigin(origins = "http://localhost:3000"), por exemplo.
  */
 @CrossOrigin
 @RestController
-// @RequestMapping("/api")
 public class UsuarioController {
 
 	@Autowired
@@ -71,6 +71,13 @@ public class UsuarioController {
 	@PostMapping("/usuarios")
 	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
     try {
+			System.out.println(usuario.toString());
+			System.out.println(usuario.getFoto());
+			System.out.println(usuario.getFoto().toString());
+			// byte[] usuarioFoto = Base64.encodeBase64(usuario.getFoto());
+			// System.out.println(usuarioFoto);
+			
+			// Base64.getDecoder().decodeToByte
 			Usuario _usuario = usuarioRepository.save(new Usuario(usuario.getNome(), usuario.getDataNascimento(), usuario.getFoto()));
 			return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -87,10 +94,6 @@ public class UsuarioController {
 
     //Se há um usuário com aquele codigo
 		if (usuarioByCodigo != null) {
-			// Usuario _usuario = usuarioByCodigo;
-			// _usuario.setNome(usuario.getNome());
-			// _usuario.setDataNascimento(usuario.getDataNascimento());
-			// _usuario.setFoto(usuario.getFoto());
 			usuarioByCodigo.setNome(usuario.getNome());
 			usuarioByCodigo.setDataNascimento(usuario.getDataNascimento());
 			usuarioByCodigo.setFoto(usuario.getFoto());
