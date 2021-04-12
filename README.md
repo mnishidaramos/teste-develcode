@@ -44,4 +44,4 @@ Versões das ferramentas:
   - React 17.0.2
   - Yarn 1.22.5
 
-Para qualquer dúvida ou sugestão, favor entrar enviar email para mnishidaramo@gmail.com
+Para qualquer dúvida ou sugestão, favor entrar enviar email para mnishidaramos@gmail.com
