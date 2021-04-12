@@ -20,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://localhost:8080")
+/**
+		Apenas durante o desenvolvimento, requisições de qualquer origem serão processadas pelo back-end.
+		Porém, em produção, é recomendável fazer o mesmo. É possível limitar as origens das requisições
+		utilizando @CrossOrigin(origins = "http://localhost:3000"), por exemplo
+ */
+@CrossOrigin
 @RestController
 // @RequestMapping("/api")
 public class UsuarioController {
@@ -82,11 +87,14 @@ public class UsuarioController {
 
     //Se há um usuário com aquele codigo
 		if (usuarioByCodigo != null) {
-			Usuario _usuario = usuarioByCodigo;
-			_usuario.setNome(usuario.getNome());
-			_usuario.setDataNascimento(usuario.getDataNascimento());
-			_usuario.setFoto(usuario.getFoto());
-			return new ResponseEntity<>(usuarioRepository.save(_usuario), HttpStatus.OK);
+			// Usuario _usuario = usuarioByCodigo;
+			// _usuario.setNome(usuario.getNome());
+			// _usuario.setDataNascimento(usuario.getDataNascimento());
+			// _usuario.setFoto(usuario.getFoto());
+			usuarioByCodigo.setNome(usuario.getNome());
+			usuarioByCodigo.setDataNascimento(usuario.getDataNascimento());
+			usuarioByCodigo.setFoto(usuario.getFoto());
+			return new ResponseEntity<>(usuarioRepository.save(usuarioByCodigo), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
